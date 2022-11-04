@@ -1,9 +1,6 @@
 require('dotenv').config()
-const {DataTypes} = require("sequelize")
-var createError = require('http-errors')
 var express = require('express')
 var router = require('./src/routers/router')
-var Member = require("./models/members")
 const {getDB} = require("./src/databases/db")
 
 
@@ -34,10 +31,6 @@ app.use(router)
 // })
 
 // Start listening.
-
-const userInstance = Member(getDB(), DataTypes)
-// userInstance.findAll().then(e => console.log(e)).catch(err => console.log(err))
-// userInstance.create({id:1,firstName:"firstName"})
 
 
 app.listen(3000, async () => {

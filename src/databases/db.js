@@ -1,38 +1,24 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const User = require("../entities/user")
+const mongoose = require('mongoose');
 
-function getDB() {
-    const sequelize = new Sequelize('postgres://postgres:root@localhost:5432/ekspresi') // Example for postgres
-    return sequelize
+async function getDB() {
+  
+  try {
+    let db = await mongoose.connect('mongodb://localhost:27017/test');
+    return db
+  } catch (err) {
+    console.log(err)
+    return err
+  }
+
+  
+  const Cat = db.model('Cat', { id:String, name: String });
+  const kitty = new Cat({ name:"Zulkarnne", id:"sdjkasjkdhsakj" });
+  kitty.save().then(() => console.log('meow'))
+
+  let cat = await db.model("Cat").find({_id: "6363ce4e641673f30505c1db"})
+  console.log(JSON.parse(cat))
+
 }
 
-const sequelize = getDB()
-
-function init() {
-    User.init({
-        // Model attributes are defined here
-        id: {
-          type: DataTypes.STRING,
-          allowNull: false,
-          primaryKey: true,
-        },
-        firstname: {
-          type: DataTypes.STRING
-          // allowNull defaults to true
-        }
-      }, {
-        // Other model options go here
-        sequelize: sequelize, // We need to pass the connection instance
-        modelName: 'User' // We need to choose the model name
-      });
-    
-    
-    // `sequelize.define` also returns the model
-    console.log(User === sequelize.models.User); // true
-
-    const user = new User({ id: 1 });
-    user.save()
-}
-
-
-module.exports = {init, getDB}
+getDB().then().catch()
+module.exports = {getDB}
