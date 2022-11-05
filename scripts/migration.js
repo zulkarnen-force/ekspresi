@@ -53,7 +53,7 @@ function test() {
 // migrationCards().then().catch()
 // migrationFromJson("./tasks.json", Task).then().catch()
 // migrationFromJson("./posts.json", Post).then().catch()
-migrationFromJson("./members.json", Member).then().catch()
+// migrationFromJson("./members.json", Member).then().catch()
 
 async function migrationFromJson(filename, model) {
 
@@ -63,3 +63,18 @@ async function migrationFromJson(filename, model) {
     
 }
 
+
+
+
+
+async function up(filenames, models) {
+    for (let i = 0; i < models.length; i++) {
+        const model = models[i];
+        await migrationFromJson(`${filenames[i]}.json`, model)
+    }
+}
+
+let filenames = ["users", "posts", "members", "tasks", "cards"]
+let models = [User, Post, Member, Task, Card]
+
+up(filenames, models).then(() => console.log("OK")).catch((e) => console.error(e))
