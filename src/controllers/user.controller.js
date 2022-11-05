@@ -1,8 +1,8 @@
 const userController = require("express").Router()
-const userRepo = require('../repositories/user.repository')
+const Repo = require('../repositories/repository')
 const {getDB} = require('../databases/db')
 const User = require("../entities/user")
-
+const UserService = require("../services/user.service")
 
 const EXAMPLE_REQ = {
     email:"zulkarnen@gmail.com",
@@ -10,7 +10,16 @@ const EXAMPLE_REQ = {
 }
 
 
-userController.post("/", async (req, res) => {
+let repo = new Repo(User)
+let service = new UserService(repo)
+
+// class UserController {
+//     constructor(repo, )
+// }
+
+// let repo = new userRepo(User)
+
+userController.post("/test", async (req, res) => {
     // "1667525461"
     let id = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
     EXAMPLE_REQ.id = id
@@ -28,17 +37,9 @@ userController.post("/", async (req, res) => {
 })
 
 
-userController.get("/show", async (req, res) => {
-
-    // let user = User
-    let repo = new userRepo()
-    let users = await repo.getAll()
-    /// let users = await user.find()
-    // user.save().then(e => res.json(e)).catch()
-    // res.json(users[0].createdAt)
-    // let firstUser = users[48]
+userController.get("/", async (req, res) => {
+    let users = await service.getUsers()
     res.status(200).json(users)
-   
 })  
 
 module.exports = userController

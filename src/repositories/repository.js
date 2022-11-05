@@ -3,13 +3,12 @@ const User = require("../entities/user")
 
 module.exports = class Repository {
 
-    constructor() {
-        
+    constructor(model= User) {
+        this.model = model
     }
 
     async getAll() {
-        let a = await User.find()
-        return a
+        return await this.model.find()
     }
 }
 
