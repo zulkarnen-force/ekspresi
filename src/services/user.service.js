@@ -10,6 +10,11 @@ module.exports = class UserService {
     getUsers () {
         return this.repo.getAll()
     }
+
+    
+    getUserById (id) {
+        return this.repo.getById(id)
+    }
 }
 
 

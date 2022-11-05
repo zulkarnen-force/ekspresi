@@ -42,4 +42,11 @@ userController.get("/", async (req, res) => {
     res.status(200).json(users)
 })  
 
+
+userController.get("/:id", async (req, res) => {
+    let user = await service.getUserById(req.params.id)
+    res.status(200).json(user)
+})  
+
+
 module.exports = userController

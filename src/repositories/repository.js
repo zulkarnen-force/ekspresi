@@ -10,5 +10,9 @@ module.exports = class Repository {
     async getAll() {
         return await this.model.find()
     }
+
+    async getById(id) {
+        return await this.model.findOne({uid: id})
+    }
 }
 
