@@ -2,11 +2,11 @@ const User = require("../src/entities/user")
 const Card = require("../src/entities/card")
 const readToObject = require("../src/utils/json.util")
 const fs = require("fs")
-const { json } = require("express")
 const { getDB } = require("../src/databases/db")
 const Task = require("../src/entities/task")
 const Post = require("../src/entities/post")
 const Member = require("../src/entities/member")
+const Project = require("../src/entities/project")
 
 
 
@@ -74,7 +74,10 @@ async function up(filenames, models) {
     }
 }
 
-let filenames = ["users", "posts", "members", "tasks", "cards"]
-let models = [User, Post, Member, Task, Card]
+// let filenames = ["users", "posts", "members", "tasks", "cards"]
+// let models = [User, Post, Member, Task, Card]
+
+let filenames = ["projects.ok.ok"]
+let models = [Project]
 
 up(filenames, models).then(() => console.log("OK")).catch((e) => console.error(e))
