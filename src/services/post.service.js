@@ -2,7 +2,7 @@ import  Repository  from "../repositories/repository.js"
 import  generateId   from "../utils/common.util.js"
 
 
-export default  class MemberService {
+export default class PostService {
     
     constructor(repo = Repository) {
         this.repo = repo
@@ -14,7 +14,12 @@ export default  class MemberService {
 
     
     getOne(query) {
-        return this.repo.getOne(query)
+        try {
+            return this.repo.getOne(query)
+        } catch (e) {
+            throw e
+        }
+    
     }
 
 
@@ -30,6 +35,7 @@ export default  class MemberService {
 
 
     async update(id, requestBody) {
+        requestBody.updatedAt = Date.now()
         try {
             let result = await this.repo.getOne({id:id})
             let newResult = await this.repo.update(result, requestBody)

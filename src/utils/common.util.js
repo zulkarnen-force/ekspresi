@@ -4,4 +4,4 @@ function generateId() {
 }
 
 
-export default {generateId}
+export default generateId

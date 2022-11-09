@@ -1,7 +1,6 @@
 import express from  "express"
 let userController =  express.Router()
 import Repository from  "../repositories/repository.js"
-import getDB  from  '../databases/db.js'
 import User from  "../entities/user.js"
 import UserService from  "../services/user.service.js"
 import {body, validationResult} from  "express-validator"

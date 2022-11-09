@@ -1,19 +1,25 @@
-import User  from "../entities/user.js"
-
 class Repository {
 
-    constructor(model= User) {
+    constructor(model) {
         this.model = model
     }
-
 
     async getAll() {
         return await this.model.find()
     }
 
     
-    async getOne(query={}) {
-        return await this.model.findOne(query)
+    async getOne(query) {
+        try {
+            let result =  await this.model.findOne(query)
+            if (!result) {
+                throw new Error("record not found")
+            }
+            return result
+        } catch (e) {
+            throw e
+        }
+        
     }
 
     
@@ -26,7 +32,7 @@ class Repository {
         try {
             return await model.save()
         } catch (err) {
-            return err
+            throw err
         }
     }
 
@@ -34,21 +40,52 @@ class Repository {
     async isExists(email) {
         try {
             let exists = await this.model.exists({email:email})
-            console.log("repo exists data ", exists)
             return exists
         } catch (err) {
-            return err
+            throw err
         }
     }
 
 
     async create(data) {
         try {
-            return await this.model.create(data)
+            let result = await this.model.create(data)
+            if (result instanceof Error) {
+                throw result
+            }
+            return result
         } catch(err) {
-            return err
+            throw err
         }
     }
+
+
+    
+    async update(model, data) {
+        try {
+            let result = await model.updateOne(data)
+            if (result instanceof Error) {
+                throw result
+            }
+            return result
+        } catch(err) {
+            throw err
+        }
+    }
+
+
+    async delete(id) {
+        try {
+            let result = await this.model.deleteOne({id})
+            if (result instanceof Error) {
+                throw result
+            }
+            return result
+        } catch(err) {
+            throw err
+        }
+    }
+
 
      
 }

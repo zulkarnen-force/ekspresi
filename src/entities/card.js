@@ -20,20 +20,21 @@ const cardSchema = new Schema({
   },
   title: {
     type: String,
-    unique:true
+    required:true,
   },
   uid: String,
   taskFinished: Number,
   projectID: String,
-  createdAt: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  },
   updatedAt: {
     type: Date,
     default: Date.now()
   },
   assignTo: String
 });
-
-// cardSchema.path('email').index({ unique: true });
 
 const Card = mongoose.model('Card', cardSchema);
 

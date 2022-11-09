@@ -1,14 +1,25 @@
 import mongoose  from 'mongoose'
 import { Schema } from 'mongoose';
 const schema = new Schema({
-    id: String,
+    id: {
+        type:String,
+        required: true
+    },
     status: String,
-    accepted: Boolean,
+    accepted: {
+        type:Boolean,
+        required: true
+    },
     published: Boolean,
     taskFinished: Number,
-    openHiring: Boolean,
+    openHiring: {
+        type:Boolean,
+        required: true
+    },
     members: [String],
-    needCV: Boolean,
+    needCV: {
+        type:Boolean,
+    },
     dueDate: Date,
     uid: String,
     leader: String,
@@ -18,6 +29,10 @@ const schema = new Schema({
     title: String,
     dueDate: Date,
     createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
         type: Date,
         default: Date.now
     }
