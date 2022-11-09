@@ -1,5 +1,5 @@
-const mongoose = require( 'mongoose');
-const { Schema } = mongoose;
+import mongoose  from 'mongoose'
+import { Schema } from 'mongoose';
 
 const cat = new Schema({
   name: String,
@@ -8,4 +8,4 @@ const cat = new Schema({
 
 const Cat = mongoose.model('Cat', cat);
 
-module.exports = Cat
+export default  Cat

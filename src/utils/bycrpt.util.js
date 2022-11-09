@@ -1,4 +1,21 @@
-var bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt'
 
-var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("my password", salt);
+
+let salt = bcrypt.genSaltSync(10);
+
+const bcryptPassword = {
+    
+    hashPassword(password = "") {
+        let hashed = bcrypt.hashSync(password, salt);
+        return hashed
+    },
+    
+    
+    isValidPassword(plainPassword, hashPassword) {
+        return bcrypt.compareSync(plainPassword, hashPassword)
+    }
+}
+
+
+
+export default bcryptPassword

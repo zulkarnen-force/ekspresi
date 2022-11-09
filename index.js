@@ -1,9 +1,11 @@
-require('dotenv').config()
-var express = require('express')
-var router = require('./src/routers/router')
-const {getDB} = require("./src/databases/db")
+import dotenv from 'dotenv'
 
+import express from 'express'
+import router from "./src/routers/router.js"
 
+//import {getDB} from "./src/databases/db"
+
+dotenv.config()
 var app = express()
 
 app.use(express.json())
@@ -38,4 +40,4 @@ app.listen(3000, async () => {
     console.log('Press Ctrl-C to terminate...')
 })
 
-module.exports = app
+export default  app

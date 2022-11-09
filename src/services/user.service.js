@@ -1,9 +1,12 @@
-const { default: mongoose, MongooseError } = require("mongoose")
-const User = require("../entities/user")
-const Repo = require("../repositories/user.repository")
+// import { mongoose, MongooseError, ObjectId} from "mongoose"
+import User from "../entities/user.js"
+import Repo from "../repositories/repository.js"
 
+import pkg from 'mongoose';
+const { mongoose, MongooseError, ObjectId} = pkg;
 
-module.exports = class UserService {
+export default  class UserService {
+
     constructor(repo) {
         this.repo = repo
     }
@@ -23,19 +26,24 @@ module.exports = class UserService {
         let user = {}
         user.email = email
         user.password = password
-        user.uid = "adkasdjaskljdlk"
+        user.uid = new mongoose.Types.ObjectId();
+
         try {
-            let exists = await this.repo.isExists(user.email)
-            if (exists) {
-                return { ok:false, result:null}
-            } 
             
-            let result = await this.repo.create(user)
-                return { ok:true, result}
+            let exists = await this.repo.isExists(user.email)
+
+            if (exists) {
+                return {ok:false, result:{}}
+            }
+         
+            let newUser = new User(user)
+            let result = await this.repo.save(newUser)
+            return { ok:true, result}
+
         } catch (err){
+            console.log("errror", err)
             return false
         }
-
     }
 }
 

@@ -1,6 +1,7 @@
-const defaultController = require("express").Router()
-const DefaultRepo = require('../repositories/default.repository')
-const {getDB} = require('../databases/db')
+import DefaultRepo from '../repositories/default.repository.js'
+import getDB from '../databases/db.js'
+import express from "express"
+let defaultController = express.Router()
 
 
 defaultController.get("/", async (req, res) => {
@@ -13,4 +14,4 @@ defaultController.get("/", async (req, res) => {
   
 })
 
-module.exports = defaultController
+export default defaultController

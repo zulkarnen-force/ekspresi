@@ -1,5 +1,5 @@
-const mongoose = require( 'mongoose');
-const { Schema } = mongoose;
+import mongoose  from 'mongoose'
+import { Schema } from 'mongoose';
 
 const postSchema = new Schema({
     id: String,
@@ -21,4 +21,4 @@ const postSchema = new Schema({
   const Post = mongoose.model('Post', postSchema);
   
   
-  module.exports = Post
+  export default  Post

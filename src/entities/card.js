@@ -1,6 +1,5 @@
-const mongoose = require( 'mongoose');
-const { Schema } = mongoose;
-
+import mongoose  from 'mongoose'
+import { Schema } from 'mongoose';
 // {
 //     "id": "15831239487393768",
 //     "title": "Data Wilayah",
@@ -39,4 +38,4 @@ const cardSchema = new Schema({
 const Card = mongoose.model('Card', cardSchema);
 
 
-module.exports = Card   
+export default  Card   

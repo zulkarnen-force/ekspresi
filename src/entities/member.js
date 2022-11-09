@@ -1,8 +1,11 @@
-const mongoose = require( 'mongoose');
-const { Schema } = mongoose;
+import mongoose  from 'mongoose'
+import { Schema } from 'mongoose';
 
 const memberSchema = new Schema({
-    id:String, 
+    id: {
+        required: true,
+        type:String
+    }, 
     avatar:String, 
     gender:String,
     bio:String, 
@@ -23,4 +26,4 @@ const memberSchema = new Schema({
   const Member = mongoose.model('Member', memberSchema);
   
   
-  module.exports = Member
+export default  Member

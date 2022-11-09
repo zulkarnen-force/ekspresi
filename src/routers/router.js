@@ -1,11 +1,13 @@
-const defaultController = require("../controllers/default.controller")
-const userController = require("../controllers/user.controller")
+import defaultController  from "../controllers/default.controller.js"
+import userController  from "../controllers/user.controller.js"
+import memberController  from "../controllers/member.controller.js"
 
-const express = require('express');
-const router = express.Router();
+import express  from 'express'
+let  router = express.Router();
 
 router.use("/users", userController)
+router.use("/members", memberController)
 router.use("/", defaultController)
 
 
-module.exports = router
+export default router

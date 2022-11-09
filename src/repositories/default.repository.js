@@ -1,7 +1,7 @@
-const { mongoose, model } = require("mongoose")
-const Cat = require("../entities/test")
+import { mongoose, model } from "mongoose"
+import Cat from "../entities/test.js"
 
-module.exports = class Repository {
+export default class Repository {
 
     constructor(db = mongoose) {
         this.db = db

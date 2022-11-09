@@ -6,4 +6,4 @@ function readToObject(filename) {
 }
 
 
-module.exports = readToObject
+export default readToObject

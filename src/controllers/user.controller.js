@@ -1,8 +1,10 @@
-const userController = require("express").Router()
-const Repo = require('../repositories/user.repository')
-const {getDB} = require('../databases/db')
-const User = require("../entities/user")
-const UserService = require("../services/user.service")
+import express from  "express"
+let userController =  express.Router()
+import Repository from  "../repositories/repository.js"
+import getDB  from  '../databases/db.js'
+import User from  "../entities/user.js"
+import UserService from  "../services/user.service.js"
+import {body, validationResult} from  "express-validator"
 
 const EXAMPLE_REQ = {
     email:"zulkarnen@gmail.com",
@@ -10,17 +12,11 @@ const EXAMPLE_REQ = {
 }
 
 
-let repo = new Repo(User)
+let repo = new Repository(User)
 let service = new UserService(repo)
 
-// class UserController {
-//     constructor(repo, )
-// }
-
-// let repo = new userRepo(User)
 
 userController.post("/test", async (req, res) => {
-    // "1667525461"
     let id = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
     EXAMPLE_REQ.id = id
     let d = new Date("Fri, 13 Mar 2020 09:42:27 GMT")
@@ -49,23 +45,35 @@ userController.get("/:id", async (req, res) => {
 })  
 
 
-userController.post("/", async (req, res) => {
-    // let user = await service.getUserById(req.params.id)
-    // res.status(200).json(user)
+userController.post("/", body("email").isEmail(), async (req, res) => {
     let {ok, result} = await service.saveNewUser(req.body)
 
-    console.log(result)
+    console.log("result ", result)
+
+    console.log("Oke ", ok)
+    const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                errors: errors.array()
+            });
+        }
+
     if (!ok) {
         return res.status(400).json({
             "msg":"user exists"
         })
     }
 
-    res.status(201).json({
+    return res.status(201).json({
         "msg":"user has been created successfully",
         result
     })
 })  
 
 
-module.exports = userController 
+
+
+
+export default userController 

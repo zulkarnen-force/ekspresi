@@ -1,6 +1,5 @@
-const mongoose = require( 'mongoose');
-const { Schema } = mongoose;
-
+import mongoose  from 'mongoose'
+import { Schema } from 'mongoose';
 const schema = new Schema({
     id: String,
     status: String,
@@ -27,4 +26,4 @@ const schema = new Schema({
   const Project = mongoose.model('Project', schema);
   
   
-  module.exports = Project
+  export default  Project

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose"
 
 async function getDB() {
   
@@ -21,4 +21,4 @@ async function getDB() {
 }
 
 getDB().then().catch()
-module.exports = {getDB}
+export default  getDB 
